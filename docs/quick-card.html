@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Survival Station - Quick Card (laminate)</title>
+<style>
+  :root{ --green:#234a3d; --green2:#2c5446; --amber:#b5651d; --cream:#fff6e6; --warnbd:#e0a32e; }
+  *{box-sizing:border-box;}
+  body{ font-family:"Segoe UI",Arial,sans-serif; margin:0; background:#cfd8d3; color:#15231d; }
+  .printbar{ text-align:center; background:var(--green2); color:#fff; padding:10px; font-size:16px; }
+  .printbar button{ font-size:16px; padding:7px 18px; border:0; border-radius:8px; background:#ffd27a; color:#3a2a08; font-weight:700; cursor:pointer; margin-left:8px; }
+  .printbar small{ display:block; opacity:.9; margin-top:4px; }
+
+  /* The card itself: sized to roughly half a Letter/A5, with a cut border. */
+  .card{
+    width:148mm; max-width:96vw; margin:16px auto; background:#fff;
+    border:3px dashed #7a8a83; border-radius:14px; padding:0; overflow:hidden;
+  }
+  .card .hd{ background:var(--green); color:#fff; text-align:center; padding:14px 10px; }
+  .card .hd .logo{ font-size:40px; line-height:1; }
+  .card .hd h1{ font-size:28px; margin:4px 0 2px; }
+  .card .hd p{ font-size:16px; margin:0; color:#dcebe4; }
+  .card .body{ padding:14px 18px 18px; }
+
+  .steps{ list-style:none; padding:0; margin:0; }
+  .steps li{ display:flex; gap:12px; align-items:flex-start; margin:10px 0; font-size:20px; line-height:1.35; }
+  .steps .n{ flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:var(--green2);
+             color:#fff; font-weight:800; text-align:center; line-height:30px; font-size:17px; }
+  .start{ background:var(--green2); color:#fff; font-weight:800; border-radius:6px; padding:1px 8px; white-space:nowrap; }
+
+  .warn{ background:var(--cream); border:3px solid var(--warnbd); border-radius:12px;
+         padding:12px 14px; margin:14px 0 8px; font-size:18px; line-height:1.4; color:#5a3d12; }
+  .warn b{ color:#7a2e0e; }
+  .fix{ background:#eef6f1; border:2px solid #9cc3b3; border-radius:12px; padding:10px 14px; font-size:17px; color:#15231d; }
+  .tipcut{ text-align:center; font-size:13px; color:#6a7a73; margin:8px 0 0; }
+
+  @media print{
+    .printbar{ display:none; }
+    body{ background:#fff; }
+    .card{ box-shadow:none; margin:0 auto; }
+    @page{ size:auto; margin:10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="printbar">
+    Press <b>Ctrl&nbsp;+&nbsp;P</b> to print, then cut along the dashed line and laminate.
+    <button onclick="window.print()">Print this card</button>
+    <small>Tip: in the print box, turn ON &ldquo;Background graphics&rdquo; so the colors print.</small>
+  </div>
+
+  <div class="card">
+    <div class="hd">
+      <div class="logo">&#127957;</div>
+      <h1>SURVIVAL STATION</h1>
+      <p>No internet needed &middot; You can&rsquo;t break it by clicking</p>
+    </div>
+    <div class="body">
+      <ul class="steps">
+        <li><span class="n">1</span><span>Turn the computer <b>ON</b>. Wait a minute. Sign in.</span></li>
+        <li><span class="n">2</span><span>Double-click &#127957; <span class="start">START HERE</span> on the desktop.</span></li>
+        <li><span class="n">3</span><span>The big <b>main screen</b> opens by itself.</span></li>
+        <li><span class="n">4</span><span>Tap a <b>big button</b> for what you need.</span></li>
+        <li><span class="n">5</span><span><b>Ask the Assistant:</b> type a question, press <b>Enter</b>, wait.</span></li>
+        <li><span class="n">6</span><span><b>Go back</b> with the <b>&larr;</b> arrow, top-left.</span></li>
+      </ul>
+
+      <div class="warn">
+        &#9888;&#65039; <b>SAFETY:</b> For food, plants &amp; medical &mdash; <b>never trust one
+        source or the AI alone</b>. Check the guides. <b>When unsure, DON&rsquo;T.</b>
+      </div>
+
+      <div class="fix">
+        &#128260; <b>Stuck?</b> Restart the computer, then double-click <b>START HERE</b> again.
+      </div>
+
+      <p class="tipcut">&#9986; Cut along the dashed border &middot; Laminate for daily use</p>
+    </div>
+  </div>
+</body>
+</html>

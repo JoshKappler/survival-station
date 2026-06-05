@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Survival Station - Quick Start</title>
+<style>
+  :root{ --green:#2c5446; --amber:#b5651d; --warn-bg:#fff6e6; --warn-bd:#e0a32e; --warn-ink:#5a3d12; }
+  *{box-sizing:border-box;}
+  body{ font-family:"Segoe UI",Arial,sans-serif; color:#1c2b25; margin:0; background:#eef3f0; }
+  .sheet{ max-width:800px; margin:0 auto; background:#fff; padding:26px 34px 34px; }
+  .printbar{ text-align:center; background:var(--green); color:#fff; padding:12px; font-size:18px; }
+  .printbar button{ font-size:18px; padding:8px 20px; border:0; border-radius:8px; background:#ffd27a; color:#3a2a08; font-weight:700; cursor:pointer; margin-left:10px; }
+  header{ text-align:center; border-bottom:4px solid var(--green); padding-bottom:12px; margin-bottom:14px; }
+  header .logo{ font-size:50px; }
+  h1{ font-size:36px; color:var(--green); margin:4px 0; }
+  header p{ font-size:20px; margin:0; color:#42554c; }
+  ol{ padding-left:30px; margin:14px 0; }
+  ol li{ font-size:23px; line-height:1.5; margin:14px 0; }
+  ol li b{ color:var(--green); }
+  .start{ background:var(--green); color:#fff; font-weight:800; border-radius:8px; padding:2px 12px; white-space:nowrap; }
+  .warn{ background:var(--warn-bg); border:3px solid var(--warn-bd); border-radius:14px;
+         padding:16px 22px; margin:18px 0 6px; color:var(--warn-ink); font-size:22px; line-height:1.45; }
+  .warn b{ color:#7a2e0e; }
+  .foot{ text-align:center; font-size:20px; color:#42554c; margin-top:16px; border-top:2px dashed #ccc; padding-top:12px; }
+  @media print{
+    .printbar{ display:none; }
+    body{ background:#fff; }
+    .sheet{ max-width:100%; padding:0 6mm; }
+    @page{ size:auto; margin:12mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="printbar">
+    To print this page, press <b>Ctrl&nbsp;+&nbsp;P</b>
+    <button onclick="window.print()">Print this page</button>
+  </div>
+
+  <div class="sheet">
+    <header>
+      <div class="logo">&#127957;</div>
+      <h1>Survival Station &mdash; Quick Start</h1>
+      <p>Works with <b>no internet</b>. You cannot break it by clicking.</p>
+    </header>
+
+    <ol>
+      <li>Turn the computer <b>on</b> with the power button. Wait a minute and sign in as usual.</li>
+      <li>On the desktop, <b>double-click</b> &#127957; <span class="start">Survival Station &mdash; START HERE</span>.</li>
+      <li>Wait for the calm <i>&ldquo;Starting&hellip;&rdquo;</i> screen. The big <b>main screen</b> opens by itself.</li>
+      <li>Click a <b>big button</b> for what you need: Assistant, Encyclopedia, Medical, Food, Maps, Library, Repair.</li>
+      <li>To <b>ask the Assistant</b>: click &#128483;&#65039; Ask the Survival Assistant, type your question, press <b>Enter</b>, and wait.</li>
+      <li>To <b>go back</b>: click the <b>&larr; back arrow</b> at the top-left of the window.</li>
+    </ol>
+
+    <div class="warn">
+      &#9888;&#65039; <b>Safety:</b> For food, plants, or medical choices, <b>never trust one source
+      or the AI alone</b>. Check the guides too. <b>When unsure, don&rsquo;t.</b>
+    </div>
+
+    <div class="warn" style="background:#eef6f1; border-color:#9cc3b3; color:#1c2b25;">
+      &#128260; <b>If something seems stuck:</b> restart the computer (Start &rarr; power &rarr; Restart),
+      then double-click <b>START HERE</b> again.
+    </div>
+
+    <div class="foot">
+      Need more help? Open <b>&#10067; How to use this computer</b> on the main screen.
+    </div>
+  </div>
+</body>
+</html>

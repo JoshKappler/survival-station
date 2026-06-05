@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Offline US Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- All assets are vendored locally. NO internet / NO CDN is used at runtime. -->
+<link rel="stylesheet" href="assets/maplibre-gl.css" />
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; font-family: "Segoe UI", system-ui, sans-serif; }
+  #map { position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: #e9ecef; }
+  #titlebar {
+    position: absolute; top: 0; left: 0; right: 0; height: 46px;
+    background: #2b4c6f; color: #fff; z-index: 5;
+    display: flex; align-items: center; padding: 0 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+  #titlebar .logo { font-size: 20px; margin-right: 10px; }
+  #titlebar h1 { font-size: 17px; font-weight: 600; margin: 0; }
+  #titlebar .hint { margin-left: auto; font-size: 12.5px; opacity: 0.85; }
+  #map { top: 46px; }
+  /* friendly overlay for status / errors */
+  #status {
+    position: absolute; left: 50%; top: 55%;
+    transform: translate(-50%, -50%);
+    background: #fff; border: 1px solid #cfd6dd; border-radius: 10px;
+    padding: 18px 22px; z-index: 6; max-width: 440px; text-align: center;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.18); color: #2b3a4a; display: none;
+  }
+  #status h2 { margin: 0 0 8px; font-size: 16px; }
+  #status p { margin: 6px 0; font-size: 13.5px; line-height: 1.45; }
+  .maplibregl-ctrl-attrib { font-size: 10px; }
+  .badge { display:inline-block; background:#eef3f8; border-radius:6px; padding:2px 7px; margin-top:6px; font-size:12px; color:#456; }
+</style>
+</head>
+<body>
+<div id="titlebar">
+  <span class="logo">🗺️</span>
+  <h1>Offline United States Map</h1>
+  <span class="hint">Scroll or use + / &minus; to zoom &middot; drag to pan</span>
+</div>
+<div id="map"></div>
+<div id="status"></div>
+
+<script src="assets/maplibre-gl.js"></script>
+<script src="assets/pmtiles.js"></script>
+<script src="assets/basemaps.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  // Everything is served from this same origin (the local PowerShell server on
+  // http://127.0.0.1:8082). Using relative URLs keeps it fully local.
+  var ORIGIN = window.location.origin;             // e.g. http://127.0.0.1:8082
+  var PMTILES_URL = ORIGIN + "/us.pmtiles";        // the offline archive
+  var SOURCE_NAME = "protomaps";
+
+  var statusEl = document.getElementById("status");
+  function showStatus(html) { statusEl.innerHTML = html; statusEl.style.display = "block"; }
+  function hideStatus() { statusEl.style.display = "none"; }
+
+  // Register the pmtiles:// protocol so MapLibre reads tiles via HTTP range
+  // requests directly from the local archive (client-side, no tile server).
+  var protocol = new pmtiles.Protocol();
+  maplibregl.addProtocol("pmtiles", protocol.tile);
+
+  var pm = new pmtiles.PMTiles(PMTILES_URL);
+  protocol.add(pm);
+
+  // Build the offline basemap style. glyphs + sprite point at vendored local files.
+  function buildStyle(header) {
+    var maxz = (header && header.maxZoom) ? header.maxZoom : 12;
+    var flavor = basemaps.namedFlavor("light");
+    var layers = basemaps.layers(SOURCE_NAME, flavor, { lang: "en" });
+    return {
+      version: 8,
+      // Local glyphs (font PBFs) and sprite -- vendored, no CDN.
+      glyphs: ORIGIN + "/fonts/{fontstack}/{range}.pbf",
+      sprite: ORIGIN + "/sprites/light",
+      sources: {
+        // The pmtiles protocol resolves z/x/y tiles from the local archive.
+        protomaps: {
+          type: "vector",
+          url: "pmtiles://" + PMTILES_URL,
+          attribution: "© OpenStreetMap contributors, Protomaps (offline)"
+        }
+      },
+      layers: layers
+    };
+  }
+
+  function startMap(header) {
+    hideStatus();
+    var maxz = (header && header.maxZoom) ? header.maxZoom : 12;
+    var bounds = (header && typeof header.minLon === "number")
+      ? [[header.minLon, header.minLat], [header.maxLon, header.maxLat]]
+      : [[-125.0, 24.0], [-66.5, 49.5]];
+
+    var map = new maplibregl.Map({
+      container: "map",
+      style: buildStyle(header),
+      center: [-98.5, 39.5],          // geographic center of the contiguous US
+      zoom: 3.6,
+      minZoom: 0,
+      maxZoom: maxz,                  // cannot zoom past available detail
+      attributionControl: { compact: true },
+      hash: false
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");
+    map.addControl(new maplibregl.ScaleControl({ maxWidth: 140, unit: "imperial" }), "bottom-left");
+    map.addControl(new maplibregl.ScaleControl({ maxWidth: 140, unit: "metric" }), "bottom-left");
+    map.addControl(new maplibregl.FullscreenControl(), "top-right");
+
+    // Keep the user roughly within the US extent so they don't get lost in blank ocean.
+    map.setMaxBounds([[-170.0, 15.0], [-50.0, 60.0]]);
+
+    map.on("error", function (e) {
+      // Non-fatal tile errors are common at the data edges; only surface real failures.
+      if (e && e.error && /Failed to fetch|NetworkError|us\.pmtiles/.test(String(e.error.message || ""))) {
+        showStatus('<h2>Map data problem</h2><p>Could not read the local map archive.</p>' +
+                   '<p class="badge">Expected at ' + PMTILES_URL + '</p>');
+      }
+    });
+  }
+
+  // Probe the archive header first: confirms it exists, and lets us set maxZoom
+  // to whatever actually finished downloading.
+  showStatus('<h2>Loading offline map…</h2><p>Reading local map archive.</p>');
+  pm.getHeader().then(function (header) {
+    startMap(header);
+  }).catch(function (err) {
+    // Archive not present yet (still downloading) or unreadable -> friendly message,
+    // and still try to start with default bounds so controls render.
+    showStatus(
+      '<h2>Map archive not ready</h2>' +
+      '<p>The offline US map file <b>us.pmtiles</b> was not found or is still being prepared.</p>' +
+      '<p>Once it is ready, refresh this page (press <b>F5</b>).</p>' +
+      '<p class="badge">' + PMTILES_URL + '</p>'
+    );
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# ── Large, reproducible data — backed up to USB, NOT GitHub ──────────────
+# Offline encyclopedias (~85 GB). Re-download with: aria2c -i zim/downloads.aria2.txt
+/zim/*.zim
+/zim/*.zim.aria2
+/zim/library.xml
+# Offline US map tiles (~1.75 GB). Rebuild with: bin/extract-us-pmtiles.ps1
+/maps/*.pmtiles
+/maps/*.pmtiles.*
+/maps/*.progress.json
+# Third-party binaries (re-downloadable)
+/bin/kiwix-tools/
+/bin/pmtiles.exe
+
+# ── Runtime / logs / caches ──────────────────────────────────────────────
+/logs/
+*.log
+*.aria2
+__pycache__/
+*.pyc
+*.bak
+
+# ── Any leftover heavy app installs ──────────────────────────────────────
+/app/openwebui-venv/
+/app/openwebui-data/
+/app/anythingllm/
