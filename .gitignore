@@ -10,6 +10,8 @@
 # Third-party binaries (re-downloadable)
 /bin/kiwix-tools/
 /bin/pmtiles.exe
+# Project Gutenberg / book library (bulk — backed up to USB, not GitHub)
+/library/books/
 
 # ── Runtime / logs / caches ──────────────────────────────────────────────
 /logs/
