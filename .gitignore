@@ -21,6 +21,10 @@ __pycache__/
 *.pyc
 *.bak
 
+# Generated full-text search index (rebuild with app\build-search-index.ps1)
+/app/search-index.db
+/app/search-index.db.tmp
+
 # ── Any leftover heavy app installs ──────────────────────────────────────
 /app/openwebui-venv/
 /app/openwebui-data/

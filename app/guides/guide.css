@@ -1,0 +1,42 @@
+/* Shared style for the authored Survival Station guides (offline, no internet). */
+:root{
+  --ink:#1c2b25; --soft:#42554c; --brand:#2c5446; --brand2:#7a3d12;
+  --paper:#faf6ee; --line:#e0d6c4;
+  --warn-bg:#fdecea; --warn-bd:#c0392b; --warn-ink:#7a1d12;
+  --tip-bg:#eef6ee; --tip-bd:#3a7d3a; --tip-ink:#1f4d1f;
+  --note-bg:#eef3f8; --note-bd:#3a6ea5; --note-ink:#1d3f63;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{background:var(--paper);color:var(--ink);
+  font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:1.6;}
+.gwrap{max-width:880px;margin:0 auto;padding:0 22px 80px;}
+header.ghead{background:linear-gradient(160deg,var(--brand),#21443a);color:#fff;
+  margin:0 -22px 22px;padding:26px 26px 22px;}
+header.ghead .crumb{font-size:15px;color:#d7e6df;margin-bottom:8px;font-family:"Segoe UI",Arial,sans-serif;}
+header.ghead .crumb a{color:#ffe9c9;}
+header.ghead h1{margin:0;font-size:34px;line-height:1.15;}
+header.ghead p.lede{margin:10px 0 0;font-size:19px;color:#eaf3ee;}
+h2{color:var(--brand);font-size:26px;border-bottom:2px solid var(--line);padding-bottom:6px;margin:30px 0 10px;}
+h3{color:var(--brand2);font-size:21px;margin:20px 0 6px;}
+ul,ol{margin:8px 0 8px 4px;padding-left:26px;}
+li{margin:6px 0;}
+p{margin:10px 0;}
+strong{color:#13261f;}
+.callout{border-left:6px solid #999;border-radius:8px;padding:12px 16px;margin:16px 0;
+  font-family:"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.5;}
+.callout .h{font-weight:700;display:block;margin-bottom:4px;}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-ink);}
+.tip{background:var(--tip-bg);border-color:var(--tip-bd);color:var(--tip-ink);}
+.note{background:var(--note-bg);border-color:var(--note-bd);color:var(--note-ink);}
+.seealso{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:24px 0;
+  font-family:"Segoe UI",Arial,sans-serif;font-size:16px;}
+.seealso .h{font-weight:700;color:var(--brand);display:block;margin-bottom:6px;font-size:17px;}
+.seealso a{display:inline-block;margin:4px 14px 4px 0;color:#0a3d62;font-weight:600;}
+.steps{counter-reset:s;list-style:none;padding-left:0;}
+.steps>li{position:relative;padding-left:44px;margin:12px 0;}
+.steps>li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;
+  width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;
+  font-family:"Segoe UI",Arial,sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.backlink{font-family:"Segoe UI",Arial,sans-serif;font-size:16px;margin-top:30px;}
+.backlink a{color:var(--brand);font-weight:700;}

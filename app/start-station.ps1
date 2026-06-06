@@ -32,7 +32,9 @@ $LogDir      = Join-Path $Root 'logs'
 $LogFile     = Join-Path $LogDir 'station.log'
 $Dashboard   = Join-Path $AppDir 'dashboard.html'
 $Splash      = Join-Path $AppDir 'splash.html'
-$DashboardUri = 'file:///C:/Survival/app/dashboard.html'
+# The home screen is now served by the Hub (the assistant/web server on :8080),
+# which provides the persistent Home/Back/Search bar over all the content.
+$DashboardUri = 'http://localhost:8080/'
 
 # Set to $true ONLY if the assistant is the WEB assistant on :8080.
 # (A native-app assistant has no port to wait for; leave this $true is fine

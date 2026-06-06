@@ -3,200 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="referrer" content="no-referrer">
+<meta http-equiv="refresh" content="0; url=http://localhost:8080/">
 <title>Survival Station</title>
 <style>
-  /* All styles inline / local. No internet, no CDN. */
-  :root{
-    --bg1:#1f3b30;        /* deep calm green */
-    --bg2:#2c5446;        /* lighter green   */
-    --card:#ffffff;
-    --ink:#1c2b25;        /* near-black text */
-    --ink-soft:#3f5249;
-    --accent:#b5651d;     /* warm amber      */
-    --safe-bg:#fff6e6;    /* soft cream      */
-    --safe-border:#e0a32e;
-    --safe-ink:#5a3d12;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    font-family:"Segoe UI", Arial, Helvetica, sans-serif;
-    background:linear-gradient(160deg,var(--bg1),var(--bg2));
-    color:var(--ink);
-    min-height:100vh;
-    padding:28px 18px 60px;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:1180px;margin:0 auto;}
-  header{text-align:center;color:#fff;margin-bottom:18px;}
-  header .logo{font-size:60px;line-height:1;margin-bottom:6px;}
-  header h1{
-    font-size:46px;margin:0 0 6px;font-weight:800;letter-spacing:.5px;
-    text-shadow:0 2px 6px rgba(0,0,0,.35);
-  }
-  header p.tag{font-size:23px;margin:0;color:#e9f3ee;font-weight:500;}
-
-  /* Safety banner */
-  .safety{
-    background:var(--safe-bg);
-    border:3px solid var(--safe-border);
-    border-radius:18px;
-    padding:20px 26px;
-    margin:22px auto 30px;
-    max-width:980px;
-    display:flex;align-items:flex-start;gap:18px;
-    box-shadow:0 6px 18px rgba(0,0,0,.18);
-  }
-  .safety .icon{font-size:42px;line-height:1;flex:0 0 auto;}
-  .safety .msg{font-size:22px;line-height:1.45;color:var(--safe-ink);font-weight:600;}
-  .safety .msg b{color:#7a2e0e;}
-
-  /* Button grid */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:24px;
-  }
-  @media (max-width:760px){ .grid{grid-template-columns:1fr;} }
-
-  a.tile{
-    display:flex;align-items:center;gap:22px;
-    background:var(--card);
-    color:var(--ink);
-    text-decoration:none;
-    border-radius:20px;
-    padding:30px 30px;
-    box-shadow:0 6px 16px rgba(0,0,0,.22);
-    border:2px solid rgba(0,0,0,.05);
-    transition:transform .08s ease, box-shadow .08s ease, background .08s ease;
-    min-height:120px;
-  }
-  a.tile:hover, a.tile:focus{
-    transform:translateY(-3px);
-    box-shadow:0 12px 26px rgba(0,0,0,.32);
-    background:#fffdf8;
-    outline:none;
-  }
-  a.tile:focus-visible{ outline:4px solid #ffd27a; outline-offset:3px; }
-  a.tile .emoji{font-size:58px;line-height:1;flex:0 0 auto;width:70px;text-align:center;}
-  a.tile .label{display:flex;flex-direction:column;}
-  a.tile .label .t{font-size:30px;font-weight:800;line-height:1.1;}
-  a.tile .label .s{font-size:18px;color:var(--ink-soft);margin-top:6px;line-height:1.3;font-weight:500;}
-
-  /* Accent left edge per tile (subtle warmth) */
-  a.tile.assist{border-left:10px solid #2e7d6b;}
-  a.tile.ency  {border-left:10px solid #3a6ea5;}
-  a.tile.med   {border-left:10px solid #c0392b;}
-  a.tile.food  {border-left:10px solid #4a8a3c;}
-  a.tile.maps  {border-left:10px solid #8a6d3b;}
-  a.tile.lib   {border-left:10px solid #6a4fb0;}
-  a.tile.tech  {border-left:10px solid #b5651d;}
-  a.tile.help  {border-left:10px solid #555f5a;}
-
-  footer{
-    text-align:center;color:#d7e6df;font-size:17px;margin-top:34px;line-height:1.5;
-  }
-  footer .big{font-size:19px;color:#fff;font-weight:600;}
+  html,body{height:100%;margin:0;font-family:"Segoe UI",Arial,sans-serif;}
+  body{background:linear-gradient(160deg,#1f3b30,#2c5446);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;}
+  a{color:#ffd27a;font-size:24px;font-weight:700;}
+  .box{padding:30px;}
+  .logo{font-size:80px;}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">&#127957;</div>
-      <h1>Survival Station</h1>
-      <p class="tag">Everything you need works right here &mdash; no internet required.</p>
-    </header>
-
-    <div class="safety" role="note" aria-label="Safety reminder">
-      <div class="icon">&#128161;</div>
-      <div class="msg">
-        This works with <b>no internet</b>. For foraging or medical choices,
-        <b>never trust one source or the AI alone</b> &mdash; check the guides,
-        and when unsure, <b>don&rsquo;t</b>.
-      </div>
-    </div>
-
-    <div class="grid">
-
-      <a class="tile assist" href="http://localhost:8080">
-        <div class="emoji">&#128483;&#65039;</div>
-        <div class="label">
-          <span class="t">Ask the Survival Assistant</span>
-          <span class="s">Type a question and get help in plain words</span>
-        </div>
-      </a>
-
-      <a class="tile ency" href="http://localhost:8081">
-        <div class="emoji">&#128214;</div>
-        <div class="label">
-          <span class="t">Encyclopedia</span>
-          <span class="s">Wikipedia &amp; more &mdash; look up almost anything</span>
-        </div>
-      </a>
-
-      <a class="tile med" href="file:///C:/Survival/library/medical/">
-        <div class="emoji">&#9877;&#65039;</div>
-        <div class="label">
-          <span class="t">Medical &amp; First Aid</span>
-          <span class="s">Treating injuries, illness and emergencies</span>
-        </div>
-      </a>
-
-      <a class="tile food" href="file:///C:/Survival/library/food-foraging/">
-        <div class="emoji">&#127807;</div>
-        <div class="label">
-          <span class="t">Food &amp; Foraging</span>
-          <span class="s">Finding safe food &mdash; also check the Encyclopedia</span>
-        </div>
-      </a>
-
-      <a class="tile maps" href="http://localhost:8082">
-        <div class="emoji">&#128506;&#65039;</div>
-        <div class="label">
-          <span class="t">Maps</span>
-          <span class="s">See where you are and what&rsquo;s nearby</span>
-        </div>
-      </a>
-
-      <a class="tile lib" href="file:///C:/Survival/library/index.html">
-        <div class="emoji">&#128218;</div>
-        <div class="label">
-          <span class="t">Library &amp; Manuals</span>
-          <span class="s">Books, how-to guides and reference</span>
-        </div>
-      </a>
-
-      <a class="tile tech" href="file:///C:/Survival/library/tech-power/">
-        <div class="emoji">&#128295;</div>
-        <div class="label">
-          <span class="t">Repair, Power &amp; Radio</span>
-          <span class="s">Fixing things, electricity &amp; getting on the air</span>
-        </div>
-      </a>
-
-      <a class="tile help" href="file:///C:/Survival/docs/user-guide.html">
-        <div class="emoji">&#10067;</div>
-        <div class="label">
-          <span class="t">How to use this computer</span>
-          <span class="s">Simple step-by-step guide &mdash; start here if unsure</span>
-        </div>
-      </a>
-
-    </div>
-
-    <footer>
-      <p class="big">Tip: if something seems stuck, restart the computer and click <b>START HERE</b> again.</p>
-      <p>The &ldquo;Repair, Power &amp; Radio&rdquo; button also opens the Encyclopedia for deeper reading.</p>
-    </footer>
+  <div class="box">
+    <div class="logo">&#127957;</div>
+    <h1>Opening the Survival Station&hellip;</h1>
+    <p style="font-size:20px">If it doesn't open by itself, click here:</p>
+    <p><a href="http://localhost:8080/">Open the Survival Station</a></p>
+    <p style="font-size:16px;color:#d7e6df;margin-top:24px">If that doesn't work, close this window and double-click<br><b>&#127957; Survival Station - START HERE</b> on the desktop.</p>
   </div>
-
-  <script>
-    /* The Repair tile should also offer the Encyclopedia. Single click goes to the
-       local folder; we open the Encyclopedia in the same window only if the user
-       chooses. To keep it simple and same-window, we leave the primary link to the
-       local folder (works offline as a file) and rely on the footer note + the
-       dedicated Encyclopedia tile. No network calls are made by this page. */
-  </script>
 </body>
 </html>
