@@ -1,0 +1,13 @@
+#!/bin/zsh
+# Claude Code driven by the local Ollama model, fully offline. Uses its own config dir so
+# the online setup's hooks, MCP servers and memory stay out of the small model's context.
+ROOT="${0:A:h:h}"
+MODEL="${STATION_CODER_MODEL:-$(cat "$ROOT/bin-mac/model")}"
+export CLAUDE_CONFIG_DIR="$ROOT/claude-local-config"
+export ANTHROPIC_BASE_URL=http://localhost:11434 ANTHROPIC_AUTH_TOKEN=ollama ANTHROPIC_API_KEY=""
+export ANTHROPIC_DEFAULT_OPUS_MODEL="$MODEL" ANTHROPIC_DEFAULT_SONNET_MODEL="$MODEL" ANTHROPIC_DEFAULT_HAIKU_MODEL="$MODEL"
+export CLAUDE_CODE_MAX_CONTEXT_TOKENS=65536 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+export CLAUDE_CODE_DISABLE_OFFICIAL_MARKETPLACE_AUTOINSTALL=1 CLAUDE_CODE_DISABLE_WEB_FETCH=1
+nc -z 127.0.0.1 11434 2>/dev/null || { open -ga Ollama; sleep 3; }
+CLAUDE=$(command -v claude || echo "$ROOT/bin-mac/claude-pinned")
+exec "$CLAUDE" --model "$MODEL" "$@"

@@ -23,7 +23,7 @@ import posixpath
 import subprocess
 import urllib.parse
 
-ROOT = r"C:\Survival"
+ROOT = os.environ.get("STATION_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 APP_DIR = os.path.join(ROOT, "app")
 LIBRARY_DIR = os.path.join(ROOT, "library")
 GUIDES_DIR = os.path.join(APP_DIR, "guides")

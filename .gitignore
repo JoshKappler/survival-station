@@ -29,3 +29,14 @@ __pycache__/
 /app/openwebui-venv/
 /app/openwebui-data/
 /app/anythingllm/
+
+# ── Mac build: third-party binaries and local agent state ───────────────
+/bin-mac/kiwix-tools_*/
+/bin-mac/pmtiles
+/bin-mac/claude-pinned
+/claude-local-config/
+/maps/*.osm.pbf
+/zim/*.meta4
+# SF raw datasets (re-download from library/san-francisco/sources.tsv)
+/library/san-francisco/data/*
+!/library/san-francisco/data/index.html

@@ -54,18 +54,22 @@ HOST = os.environ.get("ASSISTANT_HOST", "127.0.0.1")
 PORT = int(os.environ.get("ASSISTANT_PORT", "8080"))
 OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/")
 
-# Single good text model (image recognition retired to save space).
 DEFAULT_MODEL = os.environ.get("ASSISTANT_DEFAULT_MODEL", "llama3.1:8b")
 
-# Filesystem roots.
-ROOT = r"C:\Survival"
+# Filesystem roots: the folder above app/ (C:\Survival on the Windows appliance).
+ROOT = os.environ.get("STATION_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+IS_WINDOWS = os.name == "nt"
 APP_DIR = os.path.join(ROOT, "app")
 GUIDES_DIR = os.path.join(APP_DIR, "guides")
 LIBRARY_DIR = os.path.join(ROOT, "library")
 DOCS_DIR = os.path.join(ROOT, "docs")
+MAPS_DIR = os.path.join(ROOT, "maps")
+MAC_BIN_DIR = os.path.join(ROOT, "bin-mac")
 INDEX_DB = os.path.join(APP_DIR, "search-index.db")
 
 # How long to wait on Ollama (CPU inference can be slow).
+# Reasoning models think silently before answering; off by default so answers start at once.
+THINK = os.environ.get("ASSISTANT_THINK", "0") == "1"
 OLLAMA_TIMEOUT = int(os.environ.get("ASSISTANT_OLLAMA_TIMEOUT", "1800"))  # seconds
 
 # Where the BROWSER reaches the Encyclopedia (Kiwix) and Maps (shown in-frame).
@@ -109,7 +113,7 @@ BASE_CSS = """
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
-body{font-family:"Segoe UI",Arial,Helvetica,sans-serif;color:var(--ink);background:#f4efe7;}
+body{font-family:-apple-system,"Segoe UI",Arial,Helvetica,sans-serif;color:var(--ink);background:#f4efe7;}
 a{color:#0a5; text-decoration:none;}
 """
 
@@ -123,7 +127,7 @@ SHELL_HTML = r"""<!DOCTYPE html>
 <title>Survival Station</title>
 <style>
   html,body{height:100%;margin:0;}
-  body{display:flex;flex-direction:column;background:#13241d;font-family:"Segoe UI",Arial,sans-serif;}
+  body{display:flex;flex-direction:column;background:#13241d;font-family:-apple-system,"Segoe UI",Arial,sans-serif;}
   #bar{
     flex:0 0 auto;display:flex;align-items:center;gap:10px;
     background:linear-gradient(180deg,#2c5446,#22443a);
@@ -280,12 +284,15 @@ HOME_HTML = r"""<!DOCTYPE html>
       <a class="tile maps" href="MAPS_HREF"><div class="emoji">&#128506;</div><div><div class="t">Maps</div><div class="s">See where you are and what&rsquo;s nearby</div></div></a>
       <a class="tile lib" href="/library/index.html"><div class="emoji">&#128218;</div><div><div class="t">Library &amp; Manuals</div><div class="s">Books, how-to guides and reference</div></div></a>
       <a class="tile tech" href="/library/index.html#tech-power"><div class="emoji">&#128295;</div><div><div class="t">Repair, Power &amp; Radio</div><div class="s">Fixing things, electricity &amp; getting on the air</div></div></a>
+      CODER_TILE
       <a class="tile help" href="/docs/user-guide.html"><div class="emoji">&#10067;</div><div><div class="t">How to use this computer</div><div class="s">Simple step-by-step guide &mdash; start here if unsure</div></div></a>
     </div>
   </div>
 </body>
 </html>
 """
+
+CODER_TILE = """<a class="tile tech" href="#" onclick="fetch('/api/coder',{method:'POST'});return false;"><div class="emoji">&#128187;</div><div><div class="t">Fix this computer</div><div class="s">Offline coding agent opens in Terminal</div></div></a>"""
 
 
 def page_wrap(title, body_html, accent="#2c5446"):
@@ -734,6 +741,8 @@ const chatEl=document.getElementById("chat"),inputEl=document.getElementById("in
   modelSel=document.getElementById("model"),statusEl=document.getElementById("status"),newchatBtn=document.getElementById("newchat");
 let history=[],busy=false;
 const DEFAULT_MODEL=%DEFAULT_MODEL_JSON%;
+function md(t){t=t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return t.replace(/^#{1,6} +(.*)$/gm,'<b style="font-size:1.12em">$1</b>').replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^( *)[*-] +/gm,"$1\u2022 ");}
 async function loadModels(){
   try{const r=await fetch("/api/models");const j=await r.json();const models=j.models||[];modelSel.innerHTML="";
     models.forEach(m=>{const o=document.createElement("option");o.value=m;o.textContent=m;modelSel.appendChild(o);});
@@ -769,8 +778,8 @@ async function send(){if(busy)return;const text=inputEl.value.trim();if(!text)re
     botBody.className="";botBody.textContent="";const reader=resp.body.getReader();const dec=new TextDecoder();let buf="",full="";
     while(true){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let nl;
       while((nl=buf.indexOf("\n"))>=0){const line=buf.slice(0,nl).trim();buf=buf.slice(nl+1);if(!line)continue;
-        try{const obj=JSON.parse(line);if(obj.message&&obj.message.content){full+=obj.message.content;botBody.textContent=full;chatEl.scrollTop=chatEl.scrollHeight;}
-          if(obj.error){full+="\n[Engine error: "+obj.error+"]";botBody.textContent=full;}}catch(_){}}}
+        try{const obj=JSON.parse(line);if(obj.message&&obj.message.content){full+=obj.message.content;botBody.innerHTML=md(full);chatEl.scrollTop=chatEl.scrollHeight;}
+          if(obj.error){full+="\n[Engine error: "+obj.error+"]";botBody.innerHTML=md(full);}}catch(_){}}}
     if(!full)botBody.textContent="(The AI gave an empty answer. Try rephrasing.)";
     history.push(userMsg);history.push({role:"assistant",content:full});
     try{const refs=await guidesPromise;const card=renderGuides(refs);if(card){const b=botBody.parentElement;if(b&&b.parentNode){b.parentNode.insertBefore(card,b.nextSibling);}else{chatEl.appendChild(card);}chatEl.scrollTop=chatEl.scrollHeight;}}catch(_){}
@@ -832,7 +841,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if path == "/home":
                 home = (HOME_HTML
                         .replace("ENCY_HREF", html.escape(KIWIX_PUBLIC_BASE + "/"))
-                        .replace("MAPS_HREF", html.escape(MAPS_PUBLIC_BASE + "/")))
+                        .replace("MAPS_HREF", html.escape(MAPS_PUBLIC_BASE + "/"))
+                        .replace("CODER_TILE", "" if IS_WINDOWS else CODER_TILE))
                 return self._send_html(home)
             if path == "/assistant":
                 return self._send_html(ASSISTANT_HTML.replace("%DEFAULT_MODEL_JSON%", json.dumps(DEFAULT_MODEL)))
@@ -853,6 +863,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 return self._serve_static(path, LIBRARY_DIR, "/library")
             if path.startswith("/docs/"):
                 return self._serve_static(path, DOCS_DIR, "/docs")
+            if path.startswith("/maps/"):
+                if path.endswith(".pmtiles"):
+                    return self._serve_static(path, MAPS_DIR, "/maps")
+                return self._serve_static(path, os.path.join(MAPS_DIR, "viewer"), "/maps")
             if path.startswith("/read-asset/"):
                 return self._handle_read_asset(path)
             if path.startswith("/read/"):
@@ -871,6 +885,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 return self._handle_chat()
             if path == "/api/stop":
                 return self._handle_stop()
+            if path == "/api/coder" and not IS_WINDOWS:
+                subprocess.Popen(["open", "-a", "Terminal", os.path.join(MAC_BIN_DIR, "coder.command")])
+                return self._send_bytes(b'{"opened":true}', "application/json", cache=False)
             self.send_error(HTTPStatus.NOT_FOUND, "Not found")
         except (BrokenPipeError, ConnectionResetError):
             pass
@@ -1005,6 +1022,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
             pass
         # Launch the stop helper detached; it will stop Kiwix/Maps and this Hub
         # and close the Edge window. We also self-exit shortly as a backstop.
+        if not IS_WINDOWS:
+            subprocess.Popen(["/bin/sh", os.path.join(MAC_BIN_DIR, "stop.sh")], start_new_session=True)
+            return
         try:
             subprocess.Popen(
                 ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
@@ -1026,7 +1046,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
         model = payload.get("model") or DEFAULT_MODEL
         messages = payload.get("messages") or []
         full_messages = [{"role": "system", "content": SYSTEM_PROMPT}] + messages
-        data = json.dumps({"model": model, "messages": full_messages, "stream": True}).encode("utf-8")
+        data = json.dumps({"model": model, "messages": full_messages, "stream": True,
+                           "think": THINK}).encode("utf-8")
         req = urllib.request.Request(OLLAMA_BASE + "/api/chat", data=data,
                                      headers={"Content-Type": "application/json"})
         try:

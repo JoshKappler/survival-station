@@ -1,0 +1,6 @@
+#!/bin/zsh
+# Backup offline coding agent: Codex CLI on the local Ollama model.
+ROOT="${0:A:h:h}"
+MODEL="${STATION_CODER_MODEL:-$(cat "$ROOT/bin-mac/model")}"
+nc -z 127.0.0.1 11434 2>/dev/null || { open -ga Ollama; sleep 3; }
+exec codex --oss -m "$MODEL" -c 'web_search="disabled"' -c 'analytics.enabled=false' "$@"

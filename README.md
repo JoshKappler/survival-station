@@ -20,3 +20,21 @@ aria2c -i zim/downloads.aria2.txt --dir=./zim
 powershell -File bin/extract-us-pmtiles.ps1
 ollama pull llama3.1:8b
 ```
+
+## On a Mac
+
+The same hub runs on Apple Silicon from `bin-mac/`. Kiwix and the map are served from the hub process and a native Kiwix build, with no PowerShell.
+
+- `bin-mac/start.sh` starts Ollama, Kiwix on :8081 and the hub on :8080, then opens the hub in a Chrome app window. `bin-mac/make-desktop-app.sh` puts a `Survival Station.app` icon on the Desktop that runs it.
+- The hub serves the map viewer at `/maps/` and reads `maps/california.pmtiles` with range requests.
+- `bin-mac/model` names the one model used for both chat and coding (`gemma4:26b`).
+- `bin-mac/claude-local` runs Claude Code against local Ollama with its own config dir, and `bin-mac/codex-local` is the Codex backup. The hub's "Fix this computer" tile opens the first in Terminal.
+
+Rebuilding the data on a Mac (Kiwix ships only an Intel Mac build, so it runs under Rosetta):
+
+```
+aria2c -i zim/downloads-mac.txt -d zim -c -j 4
+curl -sL https://download.kiwix.org/release/kiwix-tools/kiwix-tools_macos-x86_64-3.8.2.tar.gz | tar xz -C bin-mac
+pmtiles extract https://build.protomaps.com/20261117.pmtiles maps/california.pmtiles --bbox=-124.48,32.53,-114.13,42.01 --maxzoom=15
+ollama pull gemma4:26b
+```
