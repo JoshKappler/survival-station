@@ -18,9 +18,9 @@ Log 'Stop helper invoked.'
 
 $stopped = New-Object System.Collections.Generic.List[string]
 
-# 1) Close the Survival Station browser window (Edge opened with --app on the Hub).
+# 1) Close the Survival Station browser window (Chrome or Edge opened with --app on the Hub).
 try {
-  Get-CimInstance Win32_Process -Filter "Name='msedge.exe'" -ErrorAction SilentlyContinue |
+  Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" -ErrorAction SilentlyContinue |
     Where-Object { $_.CommandLine -and $_.CommandLine -match 'app=http://localhost:8080' } |
     ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue; Log "Closed browser window (PID $($_.ProcessId))." }
 } catch {}

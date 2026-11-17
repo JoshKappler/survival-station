@@ -12,8 +12,8 @@
     (b) start each service launcher (assistant / kiwix / maps) in its own
         hidden background process, but only if its port is not already up;
     (c) show a calm "Starting..." splash;
-    (d) wait (up to ~60s) for the services, then open the dashboard in Edge
-        "app" mode (falls back to the default browser if Edge is missing).
+    (d) wait (up to ~60s) for the services, then open the dashboard in a
+        Chrome or Edge "app" window (falls back to the default browser).
 
   Everything is best-effort: the dashboard opens even if a service is slow,
   so the user is never left staring at a blank screen.
@@ -84,11 +84,12 @@ function Find-Ollama {
   return $null
 }
 
-# ----- locate Edge --------------------------------------------------------
-function Find-Edge {
-  $cmd = Get-Command msedge.exe -ErrorAction SilentlyContinue
-  if ($cmd) { return $cmd.Source }
+# ----- locate a browser with app mode (Chrome first, then Edge) ----------
+function Find-AppBrowser {
   $candidates = @(
+    'C:\Program Files\Google\Chrome\Application\chrome.exe',
+    'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
+    (Join-Path $env:LOCALAPPDATA 'Google\Chrome\Application\chrome.exe'),
     'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
     'C:\Program Files\Microsoft\Edge\Application\msedge.exe'
   )
@@ -188,21 +189,24 @@ do {
 if ($allUp) { Log 'All watched services are UP.' }
 else        { Log 'Timeout reached - opening dashboard anyway (services may still be starting).' }
 
-# ----- open the dashboard in Edge app mode (fallback: default browser) ---
-$edge = Find-Edge
+# ----- open the dashboard in an app window (fallback: default browser) ---
+# A separate profile keeps this window out of the user's normal browser, so
+# stop-station.ps1 can find and close exactly this process.
+$browser = Find-AppBrowser
 $opened = $false
-if ($edge) {
-  Log "Opening dashboard in Edge app mode: $edge"
+if ($browser) {
+  Log "Opening dashboard in app mode: $browser"
   try {
-    Start-Process -FilePath $edge -ArgumentList @(
+    Start-Process -FilePath $browser -ArgumentList @(
       ('--app=' + $DashboardUri),
+      ('--user-data-dir=' + (Join-Path $env:LOCALAPPDATA 'SurvivalStation-browser')),
       '--start-maximized'
     )
     $opened = $true
-  } catch { Log "ERROR launching Edge app mode: $($_.Exception.Message)" }
+  } catch { Log "ERROR launching app-mode browser: $($_.Exception.Message)" }
 }
 if (-not $opened) {
-  Log 'Edge not available - opening dashboard in default browser.'
+  Log 'No app-mode browser available - opening dashboard in default browser.'
   try {
     Start-Process $DashboardUri
     $opened = $true

@@ -1,30 +1,30 @@
-https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-03.zim.meta4
+https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_nopic_2026-06.zim.meta4
   dir=C:\Survival\zim
-  out=wikipedia_en_all_nopic_2026-03.zim
-https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-04.zim.meta4
+  out=wikipedia_en_all_nopic_2026-06.zim
+https://download.kiwix.org/zim/wikipedia/wikipedia_en_medicine_maxi_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=wikipedia_en_medicine_maxi_2026-04.zim
+  out=wikipedia_en_medicine_maxi_2026-10.zim
 https://download.kiwix.org/zim/other/mdwiki_en_all_maxi_2025-11.zim.meta4
   dir=C:\Survival\zim
   out=mdwiki_en_all_maxi_2025-11.zim
-https://download.kiwix.org/zim/wikibooks/wikibooks_en_all_maxi_2026-04.zim.meta4
+https://download.kiwix.org/zim/wikibooks/wikibooks_en_all_maxi_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=wikibooks_en_all_maxi_2026-04.zim
-https://download.kiwix.org/zim/wikivoyage/wikivoyage_en_all_maxi_2026-03.zim.meta4
+  out=wikibooks_en_all_maxi_2026-10.zim
+https://download.kiwix.org/zim/wikivoyage/wikivoyage_en_all_maxi_2026-09.zim.meta4
   dir=C:\Survival\zim
-  out=wikivoyage_en_all_maxi_2026-03.zim
-https://download.kiwix.org/zim/wiktionary/wiktionary_en_all_nopic_2026-05.zim.meta4
+  out=wikivoyage_en_all_maxi_2026-09.zim
+https://download.kiwix.org/zim/wiktionary/wiktionary_en_all_nopic_2026-11.zim.meta4
   dir=C:\Survival\zim
-  out=wiktionary_en_all_nopic_2026-05.zim
+  out=wiktionary_en_all_nopic_2026-11.zim
 https://download.kiwix.org/zim/ifixit/ifixit_en_all_2025-12.zim.meta4
   dir=C:\Survival\zim
   out=ifixit_en_all_2025-12.zim
 https://download.kiwix.org/zim/other/appropedia_en_all_maxi_2026-02.zim.meta4
   dir=C:\Survival\zim
   out=appropedia_en_all_maxi_2026-02.zim
-https://download.kiwix.org/zim/other/energypedia_en_all_maxi_2025-12.zim.meta4
+https://download.kiwix.org/zim/other/energypedia_en_all_maxi_2026-06.zim.meta4
   dir=C:\Survival\zim
-  out=energypedia_en_all_maxi_2025-12.zim
+  out=energypedia_en_all_maxi_2026-06.zim
 https://download.kiwix.org/zim/other/zimgit-post-disaster_en_2024-05.zim.meta4
   dir=C:\Survival\zim
   out=zimgit-post-disaster_en_2024-05.zim
@@ -40,66 +40,66 @@ https://download.kiwix.org/zim/other/zimgit-food-preparation_en_2025-04.zim.meta
 https://download.kiwix.org/zim/other/zimgit-knots_en_2024-08.zim.meta4
   dir=C:\Survival\zim
   out=zimgit-knots_en_2024-08.zim
-https://download.kiwix.org/zim/vikidia/vikidia_en_all_maxi_2026-03.zim.meta4
+https://download.kiwix.org/zim/vikidia/vikidia_en_all_maxi_2026-09.zim.meta4
   dir=C:\Survival\zim
-  out=vikidia_en_all_maxi_2026-03.zim
-https://download.kiwix.org/zim/wikiversity/wikiversity_en_all_nopic_2026-05.zim.meta4
+  out=vikidia_en_all_maxi_2026-09.zim
+https://download.kiwix.org/zim/wikiversity/wikiversity_en_all_nopic_2026-11.zim.meta4
   dir=C:\Survival\zim
-  out=wikiversity_en_all_nopic_2026-05.zim
-https://download.kiwix.org/zim/stack_exchange/outdoors.stackexchange.com_en_all_2026-02.zim.meta4
+  out=wikiversity_en_all_nopic_2026-11.zim
+https://download.kiwix.org/zim/stack_exchange/outdoors.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=outdoors.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/gardening.stackexchange.com_en_all_2026-02.zim.meta4
+  out=outdoors.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/gardening.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=gardening.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/cooking.stackexchange.com_en_all_2026-02.zim.meta4
+  out=gardening.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/cooking.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=cooking.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/homebrew.stackexchange.com_en_all_2026-02.zim.meta4
+  out=cooking.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/homebrew.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=homebrew.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/ham.stackexchange.com_en_all_2026-02.zim.meta4
+  out=homebrew.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/ham.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=ham.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/biology.stackexchange.com_en_all_2026-02.zim.meta4
+  out=ham.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/biology.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=biology.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/medicalsciences.stackexchange.com_en_all_2026-02.zim.meta4
+  out=biology.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/medicalsciences.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=medicalsciences.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/diy.stackexchange.com_en_all_2026-02.zim.meta4
+  out=medicalsciences.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/diy.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=diy.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/woodworking.stackexchange.com_en_all_2026-02.zim.meta4
+  out=diy.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/woodworking.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=woodworking.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/mechanics.stackexchange.com_en_all_2026-02.zim.meta4
+  out=woodworking.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/mechanics.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=mechanics.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-02.zim.meta4
+  out=mechanics.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/electronics.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=electronics.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/physics.stackexchange.com_en_all_2026-02.zim.meta4
+  out=electronics.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/physics.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=physics.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/chemistry.stackexchange.com_en_all_2026-02.zim.meta4
+  out=physics.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/chemistry.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=chemistry.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/sustainability.stackexchange.com_en_all_2026-02.zim.meta4
+  out=chemistry.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/sustainability.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=sustainability.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/martialarts.stackexchange.com_en_all_2026-02.zim.meta4
+  out=sustainability.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/martialarts.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=martialarts.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/fitness.stackexchange.com_en_all_2026-02.zim.meta4
+  out=martialarts.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/fitness.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=fitness.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/pets.stackexchange.com_en_all_2026-02.zim.meta4
+  out=fitness.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/pets.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=pets.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/parenting.stackexchange.com_en_all_2026-02.zim.meta4
+  out=pets.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/parenting.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=parenting.stackexchange.com_en_all_2026-02.zim
-https://download.kiwix.org/zim/stack_exchange/expatriates.stackexchange.com_en_all_2026-02.zim.meta4
+  out=parenting.stackexchange.com_en_all_2026-10.zim
+https://download.kiwix.org/zim/stack_exchange/expatriates.stackexchange.com_en_all_2026-10.zim.meta4
   dir=C:\Survival\zim
-  out=expatriates.stackexchange.com_en_all_2026-02.zim
+  out=expatriates.stackexchange.com_en_all_2026-10.zim

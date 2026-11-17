@@ -54,7 +54,7 @@ HOST = os.environ.get("ASSISTANT_HOST", "127.0.0.1")
 PORT = int(os.environ.get("ASSISTANT_PORT", "8080"))
 OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/")
 
-DEFAULT_MODEL = os.environ.get("ASSISTANT_DEFAULT_MODEL", "llama3.1:8b")
+DEFAULT_MODEL = os.environ.get("ASSISTANT_DEFAULT_MODEL", "gemma4:26b-a4b-it-qat")
 
 # Filesystem roots: the folder above app/ (C:\Survival on the Windows appliance).
 ROOT = os.environ.get("STATION_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -1021,7 +1021,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         except Exception:
             pass
         # Launch the stop helper detached; it will stop Kiwix/Maps and this Hub
-        # and close the Edge window. We also self-exit shortly as a backstop.
+        # and close the app window. We also self-exit shortly as a backstop.
         if not IS_WINDOWS:
             subprocess.Popen(["/bin/sh", os.path.join(MAC_BIN_DIR, "stop.sh")], start_new_session=True)
             return
@@ -1046,8 +1046,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
         model = payload.get("model") or DEFAULT_MODEL
         messages = payload.get("messages") or []
         full_messages = [{"role": "system", "content": SYSTEM_PROMPT}] + messages
+        # gpt-oss ignores think=false and reasons at full length; "low" is its floor.
+        think = "low" if model.startswith("gpt-oss") else THINK
         data = json.dumps({"model": model, "messages": full_messages, "stream": True,
-                           "think": THINK}).encode("utf-8")
+                           "think": think}).encode("utf-8")
         req = urllib.request.Request(OLLAMA_BASE + "/api/chat", data=data,
                                      headers={"Content-Type": "application/json"})
         try:

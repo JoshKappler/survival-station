@@ -5,7 +5,7 @@
 #  at:   http://127.0.0.1:8080
 #
 #  Powered by the local Ollama server (http://localhost:11434), which
-#  must already be running. Default model: llama3.1:8b (text).
+#  must already be running. Default model: gemma4:26b-a4b-it-qat (text).
 #
 #  WHY THIS DESIGN:
 #  This machine has Windows "Smart App Control" turned ON. That security
@@ -58,7 +58,7 @@ if (-not (Test-Path $appScript)) {
 $env:OLLAMA_BASE_URL          = 'http://localhost:11434'
 $env:ASSISTANT_HOST           = '127.0.0.1'
 $env:ASSISTANT_PORT           = '8080'
-$env:ASSISTANT_DEFAULT_MODEL  = 'llama3.1:8b'
+$env:ASSISTANT_DEFAULT_MODEL  = 'gemma4:26b-a4b-it-qat'
 
 # Privacy / no-phone-home (belt and suspenders; the app makes no outbound
 # calls anyway except to the local Ollama).
